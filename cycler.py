@@ -22,7 +22,7 @@ def get_cycle_weights(training_weight,
             round_weight(training_weight * third_set_percentage)]
 
 
-def print_cycles(bench_max):
+def print_cycles(training_max):
     program = {
         'warm up':
         {'first_set': {'percentage': .4, 'repetitions': '5'},
@@ -44,7 +44,7 @@ def print_cycles(bench_max):
     program = OrderedDict(sorted(program.items(), key=lambda t: t[0]))
 
     for key in program:
-        weights = get_cycle_weights(bench_max,
+        weights = get_cycle_weights(training_max,
                                     program[key]['first_set']['percentage'],
                                     program[key]['second_set']['percentage'],
                                     program[key]['third_set']['percentage'])
@@ -56,8 +56,17 @@ def print_cycles(bench_max):
 
 
 def main():
-    bench_max = calculate_training_max(150, 10)
-    print_cycles(bench_max)
+    lifts = {'bench': {'weight': 150, 'repetitions': 10},
+             'deadlift': {'weight': 245, 'repetitions': 6},
+             'overhead press': {'weight': 90, 'repetitions': 8},
+             'squat': {'weight': 210, 'repetitions': 8}}
+
+    for key in lifts:
+        print(key)
+        training_max = calculate_training_max(lifts[key]['weight'],
+                                              lifts[key]['repetitions'])
+        print_cycles(training_max)
+
 
 if __name__ == '__main__':
     main()
