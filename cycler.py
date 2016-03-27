@@ -52,7 +52,9 @@ def print_cycles(training_max):
         for weight in weights:
             print('{} x {}'.format(weight,
                                    program[key]['first_set']['repetitions']))
-        print()
+        if (key == 'warm up'):
+            print('{} x {} x {}'.format(
+                round_weight(training_max * .55), 10, 5))
 
 
 def main():
@@ -66,6 +68,7 @@ def main():
         training_max = calculate_training_max(lifts[key]['weight'],
                                               lifts[key]['repetitions'])
         print_cycles(training_max)
+        print()
 
 
 if __name__ == '__main__':
